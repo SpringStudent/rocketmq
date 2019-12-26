@@ -299,6 +299,7 @@ public class HAService {
             }
         }
 
+        @Override
         public void run() {
             log.info(this.getServiceName() + " service started");
 

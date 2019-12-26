@@ -1132,11 +1132,17 @@ public class BrokerController {
     }
 
     private void handleSlaveSynchronize(BrokerRole role) {
+        //broker是slave角色
         if (role == BrokerRole.SLAVE) {
             if (null != slaveSyncFuture) {
                 slaveSyncFuture.cancel(false);
             }
             this.slaveSynchronize.setMasterAddr(null);
+            //定时调度同步任务
+            //同步TopicConfig信息
+            //ConsumerOffset信息
+            //DelayOffset信息
+            //SubscripitionGroupConfig信息
             slaveSyncFuture = this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {

@@ -85,6 +85,12 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.apache.rocketmq.remoting.netty.NettyClientConfig;
 import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 
+/**
+ * 各种客户端类型的Consumer和Producer的底层类。首先从NameServer获取并保存各种配置信息，比如Topic和Route信息。
+ * 同时MQClientInstance还会通过MQClientAPIImpl实现类实现消息的收发，也就是从Broker获取消息或者发送消息到Broker。
+ * 然MQClientInstance实现的是底层通信功能和获取并保存元数据的功能，就没必要每个Consumer或Producer都创建一个对象，
+ * 一个MQClientInstance对象可以被多个Consumer或Producer公用。RocketMQ通过一个工厂类达到共用MQClientInstance的目的。
+ */
 public class MQClientInstance {
     private final static long LOCK_TIMEOUT_MILLIS = 3000;
     private final InternalLogger log = ClientLogger.getLog();
